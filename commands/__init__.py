@@ -1,11 +1,16 @@
-from _commands import *
 import sys
 
 __all__ = ["commands_list",]
 
-def _exit():
-	sys.exit()
+_commands = sorted([
+        "exit",
+        "help",
+        ])
 
-commands_list = {
-	"exit"	:	_exit,
-}
+commands_list = {}
+
+for command in _commands:
+    module = __import__(("commands." + command), fromlist=[command.title()])
+    klass = getattr(module, command.title())
+
+    commands_list[command] = klass

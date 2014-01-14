@@ -1,4 +1,5 @@
 from commands import *
+from commands.commandstack import *
 
 current_module = None
 cursor = "> "
@@ -16,7 +17,7 @@ def wait_for_input():
 
 def parse_input():
 	if user_input in commands_list.keys():
-		commands_list[user_input]()
+		stack = CommandStack(user_input)
 	else:
 		print "[-] error: '%s' is not a valid command" % user_input
 

@@ -1,3 +1,6 @@
+from . import commands_list
+
+__all__ = ['CommandStack']
 
 class CommandStack:
     """
@@ -12,6 +15,9 @@ class CommandStack:
 
         for arg in self.args:
             self.push(arg)
+        
+        tmp_command = self.pop()
+        self.curr_command = commands_list[tmp_command].callback([self.pop() for arg in self.out_stack])
 
     def push(self, obj):
         self.in_stack.append(obj)
