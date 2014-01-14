@@ -7,6 +7,7 @@ class Help(BaseCommand):
         print ("=" * 80)
         for command in commands_list.keys():
             print "|-- %s\t\t%s" % (command, commands_list[command].help())
+        print ("=" * 80)
 
     @staticmethod
     def help():

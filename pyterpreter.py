@@ -1,8 +1,11 @@
+#! /usr/bin/python2.7
+
 from commands import *
 from commands.commandstack import *
+from colors import Color
 
-current_module = None
 cursor = "> "
+current_module = None
 
 def print_console():
 	print cursor,
@@ -16,7 +19,7 @@ def wait_for_input():
 	user_input = raw_input()
 
 def parse_input():
-	if user_input in commands_list.keys():
+	if user_input.split()[0].lower() in commands_list.keys():
 		stack = CommandStack(user_input)
 	else:
 		print "[-] error: '%s' is not a valid command" % user_input
@@ -28,4 +31,7 @@ def main():
 
 
 if __name__ == "__main__":
-	main()
+    try:
+        main()
+    except KeyboardInterrupt:
+        print "losing Pyterpreter..."

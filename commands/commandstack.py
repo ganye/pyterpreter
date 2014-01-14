@@ -10,14 +10,16 @@ class CommandStack:
     def __init__(self, input):
         self.in_stack = []
         self.out_stack = []
-        self.args = input.split(" ")    # input will be passed raw to the
-                                        # stack - we need to split them up.
+        self.args = input.split()    # input will be passed raw to the
+                                     # stack - we need to split them up.
 
         for arg in self.args:
             self.push(arg)
-        
-        tmp_command = self.pop()
-        self.curr_command = commands_list[tmp_command].callback([self.pop() for arg in self.out_stack])
+
+        while self.in_stack:
+            self.out_stack.append(self.in_stack.pop())
+    
+        self.curr_command = commands_list[self.out_stack[-1]].callback(self.out_stack[:1])
 
     def push(self, obj):
         self.in_stack.append(obj)
@@ -26,4 +28,5 @@ class CommandStack:
         if not self.out_stack:
             while self.in_stack:
                 self.out_stack.append(self.in_stack.pop())
+        print '[*] debug: popping...'
         return self.out_stack.pop()

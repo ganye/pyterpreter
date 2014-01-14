@@ -5,5 +5,5 @@ class BaseCommand:
         raise NotImplementedError()
 
     @staticmethod
-    def help(*args):
+    def help():
         raise NotImplementedError()
