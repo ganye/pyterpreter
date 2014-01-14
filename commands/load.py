@@ -1,5 +1,8 @@
 from basecommand import BaseCommand
-import pyterpreter
+import sys
+
+pyterpreter = sys.modules['__main__'] # Used to access variables from the
+                                      # main pyterpreter module
 
 class Load(BaseCommand):
     @staticmethod

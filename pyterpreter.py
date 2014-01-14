@@ -4,13 +4,14 @@ from commands import *
 from commands.commandstack import *
 from colors import Color
 
-cursor = "> "
+cursor = Color.blue + ">"
 current_module = None
 
 def print_console():
 	print cursor,
 	if current_module:
-		print "(" + current_module + ") ",
+		print "(" + current_module + ")",
+        print Color.white,
 
 def wait_for_input():
 	global user_input
