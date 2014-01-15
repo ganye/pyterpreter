@@ -13,25 +13,39 @@ class Console:
             if key in ["cursor", "ostream", "istream"]:
                 setattr(self, key, value)
             else:
-                raise ConsoleError("'%s' is not a valid argument." % key)
+                raise ConsoleError("unexpected keyword argument '%s'" % key)
 
     def write(self, output):
-        istream.write(output)
+        self.ostream.write(output)
 
     def writeln(self, output):
-        istream.write(output + "\n")
+        self.write(output + "\n")
+
+    def set_color(self, color):
+        try:
+            newcolor = getattr(self.colors, color)
+        except AttributeError:
+            raise ConsoleError("invalid color '%s'" % color)
+        else:
+            self.write(newcolor)
 
     def disable_colors(self):
-        colors.disable()
+        self.colors.disable()
 
     def enable_colors(self):
-        colors.enable()
+        self.colors.enable()
 
-
+    def prompt(self):
+        self.set_color("red")
+        self.write(self.cursor + " ")
+        self.set_color("white")
 
 class ConsoleError(Exception):
     def __init__(self, error):
-        self.error = error
+        self._error = error
 
     def __repr__(self):
-        return self.error
+        return "%s" % self._error
+
+    def __str__(self):
+        return repr(self._error)

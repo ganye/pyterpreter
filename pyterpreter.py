@@ -3,21 +3,7 @@
 from commands import *
 from commands.commandstack import *
 from colors import Color
-
-cursor = Color.blue + ">"
-current_module = None
-
-def print_console():
-	print cursor,
-	if current_module:
-		print "(" + current_module + ")",
-        print Color.white,
-
-def wait_for_input():
-	global user_input
-	print_console()
-
-	user_input = raw_input()
+from console import Console
 
 def parse_input():
 	if user_input.split()[0].lower() in commands_list.keys():
@@ -26,13 +12,14 @@ def parse_input():
 		print "[-] error: '%s' is not a valid command" % user_input
 
 def main():
-	while True:
-		wait_for_input()
-		parse_input()
+    while True:
+        console.prompt()
+        input = raw_input()
 
 
 if __name__ == "__main__":
+    console = Console()
     try:
         main()
     except KeyboardInterrupt:
-        print "losing Pyterpreter..."
+        console.writeln("losing...")
