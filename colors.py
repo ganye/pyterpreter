@@ -1,22 +1,25 @@
 class Color:
-    white = '\033[0m'
-    red = '\033[31m'
-    green = '\033[32m'
-    orange = '\033[33m'
-    blue = '\033[34m'
-    purple = '\033[35m'
-    cyan = '\033[36m'
-    gray = '\033[37m'
-    tan = '\033[93m'
+    def __init__(self):
+        self.enable()
 
-    @staticmethod
-    def disable():
-        white = ''
-        red = ''
-        green = ''
-        orange = ''
-        blue = ''
-        purple = ''
+    def disable(self):
+        self.white = ''
+        self.red = ''
+        self.green = ''
+        self.orange = ''
+        self.blue = ''
+        self.purple = ''
         cyan = ''
         gray = ''
         tan = ''
+
+    def enable(self):
+        self.white = '\033[0m'
+        self.red = '\033[31m'
+        self.green = '\033[32m'
+        self.orange = '\033[33m'
+        self.blue = '\033[34m'
+        self.purple = '\033[35m'
+        self.cyan = '\033[36m'
+        self.gray = '\033[37m'
+        self.tan = '\033[93m'
