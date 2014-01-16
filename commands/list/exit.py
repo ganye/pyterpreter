@@ -2,8 +2,7 @@ from commands.basecommand import BaseCommand
 import sys
 
 class Exit(BaseCommand):
-    @staticmethod
-    def callback(*args):
+    def callback(self, *args):
         sys.exit()
 
     @staticmethod

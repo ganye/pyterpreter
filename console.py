@@ -63,10 +63,19 @@ class Console:
         if command in commands_list.keys():
             self.call(command, arguments)
         else:
-            self.set_color("red")
-            self.write("[-] error: ")
-            self.set_color("white")
-            self.writeln("command '%s' not found." % command)
+            self.error("command '%s' not found." % command)
+
+    def error(self, error):
+        self.set_color("red")
+        self.write("[-] error: ")
+        self.set_color("white")
+        self.writeln(error)
+
+    def debug(self, message):
+        self.set_color("dark_blue")
+        self.write("[*] debug: ")
+        self.set_color("white")
+        self.writeln(message)
 
     def call(self, command, arguments):
         commands_list[command](self)._callback(*arguments)
