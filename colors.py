@@ -9,9 +9,9 @@ class Color:
         self.orange = ''
         self.blue = ''
         self.purple = ''
-        cyan = ''
-        gray = ''
-        tan = ''
+        self.cyan = ''
+        self.gray = ''
+        self.tan = ''
 
     def enable(self):
         self.white = '\033[0m'

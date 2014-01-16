@@ -1,4 +1,6 @@
 from colors import Color
+from commands.commandstack import CommandStack
+from commands import commands_list
 import sys
 
 class Console:
@@ -14,6 +16,7 @@ class Console:
                 setattr(self, key, value)
             else:
                 raise ConsoleError("unexpected keyword argument '%s'" % key)
+        self.stack = CommandStack(self)
 
     def write(self, output):
         self.ostream.write(output)
@@ -36,9 +39,37 @@ class Console:
         self.colors.enable()
 
     def prompt(self):
-        self.set_color("red")
+        self.set_color("blue")
         self.write(self.cursor + " ")
+        if self.current_module:
+            self.set_color("bold")
+            self.write("(%s) " % self.current_module)
         self.set_color("white")
+
+        self.get_input()
+        self.parse_input()
+
+    def get_input(self):
+        user_input = self.istream.readline()
+        for arg in user_input.split():
+            self.stack.push(arg)
+
+    def parse_input(self):
+        command = self.stack.pop()
+        arguments = []
+        while not self.stack.is_empty():
+            arguments.append(self.stack.pop())
+
+        if command in commands_list.keys():
+            self.call(command, arguments)
+        else:
+            self.set_color("red")
+            self.write("[-] error: ")
+            self.set_color("white")
+            self.writeln("command '%s' not found." % command)
+
+    def call(self, command, arguments):
+        commands_list[command](self)._callback(*arguments)
 
 class ConsoleError(Exception):
     def __init__(self, error):

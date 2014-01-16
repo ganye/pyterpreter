@@ -14,7 +14,6 @@ def parse_input():
 def main():
     while True:
         console.prompt()
-        input = raw_input()
 
 
 if __name__ == "__main__":

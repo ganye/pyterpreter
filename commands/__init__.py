@@ -1,4 +1,5 @@
 import sys
+import os
 
 __all__ = ["commands_list",]
 
@@ -11,6 +12,7 @@ _commands = sorted([
 commands_list = {}
 
 for command in _commands:
+#    print "[*] debug: cwd: %s" % os.getcwd()
     module = __import__(("commands." + command), fromlist=[command.title()])
     klass = getattr(module, command.title())
 

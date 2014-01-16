@@ -6,7 +6,7 @@ class Help(BaseCommand):
     def callback(*args):
         print ("=" * 80)
         for command in commands_list.keys():
-            print "|-- %s\t\t%s" % (command, commands_list[command].help())
+            print "|-- %s%s|" % (command.ljust(8), commands_list[command].help().ljust(67))
         print ("=" * 80)
 
     @staticmethod
