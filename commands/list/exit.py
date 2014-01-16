@@ -1,4 +1,4 @@
-from basecommand import BaseCommand
+from commands.basecommand import BaseCommand
 import sys
 
 class Exit(BaseCommand):

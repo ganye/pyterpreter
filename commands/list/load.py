@@ -1,4 +1,4 @@
-from basecommand import BaseCommand
+from commands.basecommand import BaseCommand
 import sys
 
 pyterpreter = sys.modules['__main__'] # Used to access variables from the

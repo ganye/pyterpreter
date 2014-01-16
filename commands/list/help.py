@@ -1,5 +1,5 @@
-from basecommand import BaseCommand
-from . import commands_list
+from commands.basecommand import BaseCommand
+from commands import commands_list
 
 class Help(BaseCommand):
     @staticmethod
