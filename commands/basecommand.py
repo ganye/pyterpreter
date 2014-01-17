@@ -16,8 +16,15 @@ class BaseCommand:
             self.callback(*args)
 
     def callback(self, *args):
+        """
+        Actual callback function to override when writing new commands.
+        """
         raise NotImplementedError()
 
     @staticmethod
+    """
+    Static method that returns the usage for the program. Should also
+    override when writing new commands.
+    """
     def help():
         raise NotImplementedError()

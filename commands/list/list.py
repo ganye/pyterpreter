@@ -3,6 +3,10 @@ import os
 import re
 
 class List(BaseCommand):
+	"""
+	If not arguments are given, lists all modules in the modules folder -
+	otherwise, lists all modules in the given folder.
+	"""
 	def callback(self, *args):
 		if not args:
 			args = [""]
@@ -11,7 +15,8 @@ class List(BaseCommand):
 		for item in items:
 			if re.match(pattern, item):
 				if not item == "__init__.py":
-					self.console.writeln("/modules/%s/%s" % (args[0], item[:-3]))
+					self.console.writeln("/modules/%s/%s" 
+						% (args[0], item[:-3])) # Strip the .py
 
 	@staticmethod
 	def help():
