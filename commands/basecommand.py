@@ -21,10 +21,10 @@ class BaseCommand:
         """
         raise NotImplementedError()
 
-    @staticmethod
     """
     Static method that returns the usage for the program. Should also
     override when writing new commands.
     """
+    @staticmethod
     def help():
         raise NotImplementedError()

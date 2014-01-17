@@ -78,15 +78,15 @@ class Console:
         """
         command = self.stack.pop()
         arguments = []
-        if command in commands_list.keys():
-            self.call(command, arguments)
-        else:
+        if not command in commands_list.keys():
             self.error("command '%s' not found." % command)
             self.writeln("Enter 'help' or '?' to get a list of commands")
             return
 
         while not self.stack.is_empty():
             arguments.append(self.stack.pop())
+        
+        self.call(command, arguments)
 
     def error(self, error):
         """
