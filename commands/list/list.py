@@ -21,10 +21,11 @@ class List(Command):
         search_path = search_path.replace("//", "/")
 
         try:
+            # Get a list of all directories and files
             for (dirpath, dirnames, filenames) in os.walk(os.getcwd() + search_path):
                 items.extend(dirnames)
                 items.extend(filenames)
-                break
+                break # Break to prevent going deeper
         except OSError:
             self.console.error("'%s' is not a valid directory" % search_path)
             return
