@@ -1,7 +1,7 @@
-from commands.basecommand import BaseCommand
+from base.command import Command
 from commands import commands_list
 
-class Help(BaseCommand):
+class Help(Command):
     def callback(self, *args):
         print ("=" * 80)
         for command in commands_list.keys():

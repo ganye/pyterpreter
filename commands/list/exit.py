@@ -1,7 +1,7 @@
-from commands.basecommand import BaseCommand
+from base.command import Command
 import sys
 
-class Exit(BaseCommand):
+class Exit(Command):
     def callback(self, *args):
         sys.exit()
 
