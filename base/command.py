@@ -10,6 +10,8 @@ class Command:
         arguments, such as "<arg> help" to display the command's help menu.
         All other commands should override callback()/
         """
+
+        # Check to see if the first argument is a 'help' call
         if((args) and (args[0] in ["help","?"])):
             self.console.writeln(self.help())
         else:

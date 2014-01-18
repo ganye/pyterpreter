@@ -1,8 +1,9 @@
-from base.basecommand import BaseCommand
+from base.command import Command
+import sys
 import os
 import re
 
-class List(BaseCommand):
+class List(Command):
     """
     If not arguments are given, lists all modules in the modules folder -
     otherwise, lists all modules in the given folder.
@@ -10,24 +11,35 @@ class List(BaseCommand):
     def callback(self, *args):
         items = []
 
-        if len(args) > 1:
-            self.console.error('too many arguments: expected one or fewer, got %s' % len(args))
-            return
-        elif not args:
-            args = [""]
-        
+        if not args:
+            args = []
+
+        # Convert args to a file path
+        mod_path = "/modules"
+        search_path = "%s/%s/" % (mod_path, "/".join(args))
+        # In the case of no args, we need to strip the extra /
+        search_path = search_path.replace("//", "/")
+
         try:
-            items = os.listdir(os.getcwd() + "/modules/" + args[0])
+            for (dirpath, dirnames, filenames) in os.walk(os.getcwd() + search_path):
+                items.extend(dirnames)
+                items.extend(filenames)
+                break
         except OSError:
-            self.console.error("'%s' is not a valid directory" % args[0])
+            self.console.error("'%s' is not a valid directory" % search_path)
             return
         
         pattern = re.compile(r".+\.py$")
         for item in items:
+            # get the absolute path for the item
+            abs_path = os.path.abspath(os.getcwd() + search_path + item)
             if re.match(pattern, item):
                 if not item == "__init__.py": # Ignore package files
-                    self.console.writeln("/modules/%s/%s" 
-                        % (args[0], item[:-3])) # Strip the .py
+                    item = item.rstrip(".py")
+                    self.console.writeln("%s" % (search_path + item))
+            # Get the absolute path for the item and check if it is a directory
+            elif os.path.isdir(abs_path):
+                self.console.writeln("%s/" % (search_path + item))
 
     @staticmethod
     def help():
