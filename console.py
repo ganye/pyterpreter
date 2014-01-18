@@ -15,6 +15,7 @@ class Console:
     colors = Color()
     cursor = ">"
     current_module = None
+    module = None
     ostream = sys.stdout
     istream = sys.stdin
 
@@ -112,6 +113,21 @@ class Console:
         arguments.
         """
         commands_list[command](self)._callback(*arguments)
+
+    def set_module(self, new_module):
+        self.current_module = new_module
+
+        tmp = new_module.split("/")[-1]
+        # Replace /'s with .'s
+        mod_path = new_module.replace("/", ".")
+        # Strip the first "."
+        mod_path = mod_path.lstrip('.')
+        
+        # Load the actual module class file
+        module = __import__(mod_path, fromlist=[tmp.title()])
+        klass = getattr(module, tmp.title())
+        
+        self.module = klass(self)
 
 class ConsoleError(Exception):
     def __init__(self, error):
