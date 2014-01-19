@@ -43,4 +43,4 @@ class Module:
     def help(self):
         for key in self.options:
             option = getattr(self, key)
-            self.console.writeln("|-- %s%s|" % (key.ljust(16), option.help()))
+            self.console.writeln("|-- %s%s" % (key.ljust(16), option.help()))
