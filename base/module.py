@@ -42,7 +42,7 @@ class Module:
 
     def help(self):
         self.console.writeln(("=" * 80))
-        for key in options:
+        for key in self.options:
             option = getattr(self, key)
             self.console.writeln("|-- %s%s|" % (key.ljust(8), option.help().ljust(67)))
         self.console.writeln(("=" * 80))
