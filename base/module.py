@@ -1,35 +1,48 @@
+from base.option import Option
 
 class Module:
-	info = {}
-	options = {}
-	help = {}
-	def __init__(self, console):
-		self.console = console
-		self.initialize()
+    info = {}
+    options = []
 
-	def initialize(self):
-		raise NotImplementedError()
+    def __init__(self, console):
+        self.console = console
+        self.initialize()
 
-	def setup(self):
-		raise NotImplementedError()
+    def initialize(self):
+        raise NotImplementedError()
 
-	def run(self):
-		raise NotImplementedError()
+    def setup(self):
+        raise NotImplementedError()
 
-	def update_info(self, info):
-		for key, value in info.items():
-			self.info[key] = value
+    def run(self):
+        raise NotImplementedError()
 
-	def set_options(self, options):
-		for key, value in options.items():
-			self.help[key] = value[0]
-			if len(value) > 1:
-				setattr(self, key, value[1])
-			else:
-				setattr(self, key, None)
+    def update_info(self, info):
+        for key, value in info.items():
+            self.info[key] = value
 
-	def set(self, key, value):
-		setattr(self, key, value)
+    def set_options(self, options):
+        """
+        Initalize all the options for a module.
+        'options' should be a dict; the key for each item is the variable
+        to set for the module, and value is a tuple containing a 'help' string,
+        and a default value.
+        """
+        for key, value in options.items():
+            help = value[0]
+            if len(value) > 1:
+                setattr(self, key, Option(help, value[1]))
+            else:
+                setattr(self, key, Option(help, None))
+            self.options.append(key)
 
-	#def help(self):
-	#	for key, value in self.help:
+    def set(self, key, value):
+        option = getattr(self, key)
+        option.set(value)
+
+    def help(self):
+        self.console.writeln(("=" * 80))
+        for key in options:
+            option = getattr(self, key)
+            self.console.writeln("|-- %s%s|" % (key.ljust(8), option.help().ljust(67)))
+        self.console.writeln(("=" * 80))

