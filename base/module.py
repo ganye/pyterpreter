@@ -30,3 +30,6 @@ class Module:
 
 	def set(self, key, value):
 		setattr(self, key, value)
+
+	#def help(self):
+	#	for key, value in self.help:
