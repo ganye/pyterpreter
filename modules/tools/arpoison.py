@@ -27,7 +27,7 @@ class Arpoison(Module):
             self.console.error("interface '%s' not found." % self.interface)
             return
 
-        arp = ARP(op=1, psrc=self.router, pdst=self.target, hwdst=mac)
+        arp = ARP(op=1, psrc=self.router.get(), pdst=self.target.get(), hwdst=mac)
 
         self.console.writeln('[+] sending packets... press Ctrl+C to quit.')
         try:
