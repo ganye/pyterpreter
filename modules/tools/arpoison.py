@@ -22,7 +22,7 @@ class Arpoison(Module):
     def run(self):
         mac = None
         try:
-            mac = network.get_mac(self.interface)
+            mac = network.get_mac(self.interface.get())
         except IOError:
             self.console.error("interface '%s' not found." % self.interface)
             return
