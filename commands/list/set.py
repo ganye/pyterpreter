@@ -6,7 +6,12 @@ class Set(Command):
             self.console.debug("expected at least 2 arguments, got %s"
                  % len(args))
 
-        self.console.module.set(args[0], args[1])
+        if args[0] in self.console.module.options:
+            self.console.module.set(args[0], args[1])
+        else:
+            self.console.error("'%s' is not a valid option" % args[0])
+            return
+
 
     @staticmethod
     def help():
