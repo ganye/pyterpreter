@@ -1,10 +1,9 @@
 from base.option import Option
 
 class Module:
-    info = {}
-    options = []
-
     def __init__(self, console):
+        self.info = {}
+        self.options = []
         self.console = console
         self.initialize()
 
