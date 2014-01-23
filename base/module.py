@@ -1,6 +1,6 @@
 from base.option import Option
 
-class Module:
+class Module(object):
     def __init__(self, console):
         self.info = {}
         self.options = []
@@ -28,19 +28,21 @@ class Module:
         and a default value.
         """
         for key, value in options.items():
+            required = value[0]
+            default=None
             help = value[1]
+
             if len(value) > 2:
-                setattr(self, key, Option(help, required=value[1], 
-                        value=value[2]))
-            else:
-                setattr(self, key, Option(help, required=value[1],
-                        value=None))
+                default = value[2]
+
+            setattr(self, key, Option(help, required=required, value=default))
             self.options.append(key)
 
     def set(self, key, value):
         option = getattr(self, key)
         option.set(value)
 
+    @property
     def help(self):
         for key in self.options:
             option = getattr(self, key)

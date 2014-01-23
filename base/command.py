@@ -1,5 +1,5 @@
 
-class Command:
+class Command(object):
     def __init__(self, console):
         self.console = console
         
@@ -13,7 +13,7 @@ class Command:
 
         # Check to see if the first argument is a 'help' call
         if((args) and (args[0] in ["help","?"])):
-            self.console.writeln(self.help())
+            self.console.writeln(self.help)
         else:
             self.callback(*args)
 

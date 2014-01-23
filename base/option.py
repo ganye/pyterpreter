@@ -1,5 +1,5 @@
 
-class Option:
+class Option(object):
     def __init__(self, help, required, value):
         self._help = help
         self._required = required

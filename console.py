@@ -103,7 +103,7 @@ class Console:
         """
         Used for quickly/simply writing a warning to ostream.
         """
-        self.set_color("light_red")
+        self.set_color("cyan")
         self.write("[-] warning: ")
         self.set_color("white")
         self.writeln(message)
