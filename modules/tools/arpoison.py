@@ -13,10 +13,10 @@ class Arpoison(Module):
             'author' : ['ganye'],
         })
         self.set_options({
-            'router' : ['IP address for the network\'s router.',],
-            'target' : ['IP address for the target.',],
-            'interface' : ['Current interface to perform the attack from ' + 
-                           'e.g. eth0',],
+            'router' : [True, 'IP address for the network\'s router.',],
+            'target' : [True, 'IP address for the target.',],
+            'interface' : [True, 'Current interface to perform the attack ' +
+                            'from e.g. eth0',],
         })
 
     def run(self):

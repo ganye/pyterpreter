@@ -29,11 +29,13 @@ class Module:
         and a default value.
         """
         for key, value in options.items():
-            help = value[0]
-            if len(value) > 1:
-                setattr(self, key, Option(help, value[1]))
+            help = value[1]
+            if len(value) > 2:
+                setattr(self, key, Option(help, required=value[1], 
+                        value=value[2]))
             else:
-                setattr(self, key, Option(help, None))
+                setattr(self, key, Option(help, required=value[1],
+                        value=None))
             self.options.append(key)
 
     def set(self, key, value):
@@ -43,4 +45,4 @@ class Module:
     def help(self):
         for key in self.options:
             option = getattr(self, key)
-            self.console.writeln("|-- %s%s" % (key.ljust(16), option.help()))
+            self.console.writeln("|-- %s%s" % (key.ljust(16), option.help))

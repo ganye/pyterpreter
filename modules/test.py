@@ -10,7 +10,8 @@ class Test(Module):
             'author' : ['ganye'],
         })
         self.set_options({
-            'test' : ['Test variable for debugging purposes.', 'to-be-changed']
+            'test' : [True, 'Test variable for debugging purposes.', 
+                        'to-be-changed']
         })
 
     def run(self):

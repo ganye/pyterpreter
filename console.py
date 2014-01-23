@@ -9,7 +9,6 @@ class Console:
 
     TODO:
         - More commands/finish current commands.
-        - Get module loading working.
         - Read settings from a configuration file. Preferably JSON.
     """
     colors = Color()
@@ -82,6 +81,8 @@ class Console:
         if not command in commands_list.keys():
             self.error("command '%s' not found." % command)
             self.writeln("Enter 'help' or '?' to get a list of commands")
+            while not self.stack.is_empty():
+                self.stack.pop()
             return
 
         while not self.stack.is_empty():
@@ -97,6 +98,15 @@ class Console:
         self.write("[-] error: ")
         self.set_color("white")
         self.writeln(error)
+
+    def warn(self, message):
+        """
+        Used for quickly/simply writing a warning to ostream.
+        """
+        self.set_color("light_red")
+        self.write("[-] warning: ")
+        self.set_color("white")
+        self.writeln(message)
 
     def debug(self, message):
         """
