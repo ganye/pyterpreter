@@ -28,6 +28,8 @@ class Console:
                 setattr(self, key, value)
             else:
                 raise ConsoleError("unexpected keyword argument '%s'" % key)
+        if not self.ostream is sys.stdout:
+            self.colors.disable()
         self.stack = CommandStack(self)
 
     def write(self, output):
