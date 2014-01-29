@@ -53,7 +53,7 @@ Writing a module is meant to be simple and effecient. Simply create a file in
 the modules folder, inside of whatever subdirectory you see fit. Then, import
 the base module
 
-```
+```python
 from base.module import Module
 ```
 
@@ -61,7 +61,7 @@ and any other requirements, declaring a Module class. The name of the class
 MUST be the same as the filename, with a capital letter; so arping.py looks
 like
 
-```
+```python
 class Arping(Module):
 ```
 
@@ -70,7 +70,7 @@ self.update_info() and self.set_options. Both of these functions will be passed
 a dictionary declaring information about the script and the options for
 configuration.
 
-```
+```python
 class Arping(Module):
    def initialize(self):
       self.updae_info({
@@ -101,7 +101,7 @@ default value.
 
 Assigning a default value is just as simple
 
-```
+```python
       self.set_options({
           'foo' : [True, 'Fubar the foo bar', 'foo']
       })
