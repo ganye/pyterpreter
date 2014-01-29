@@ -109,3 +109,15 @@ Assigning a default value is just as simple
 
 Finally, just declare a run() function that does whatever you want your module
 to do - this is the meat and potatoes, and entirely up to you to write.
+
+### Module I/O
+All in/output should be handled by the interpreter's wrapper functions
+
+```python
+self.console.get_input() # Reads the user_input
+self.console.write() # Reads to the console with no newline
+self.console.writeln() # Reads to the console with a newline
+self.console.set_color() # Change the current color of output
+```
+
+This is to maintain compatibility with file input/output.
