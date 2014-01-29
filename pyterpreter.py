@@ -21,8 +21,8 @@ def parse_args():
 def main():
     while True:
         console.prompt()
-        console.get_input()
-        console.parse_input()
+        user_input = console.get_input()
+        console.parse_input(user_input)
 
 if __name__ == "__main__":
     if not os.geteuid() == 0:

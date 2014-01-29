@@ -66,18 +66,20 @@ class Console:
 
     def get_input(self):
         """
-        Reads input from istream, then pushes all the commands onto the 
-        CommandStack for handling.
+        Reads user input from istream, and then returns the input
         """
         user_input = self.istream.readline()
-        for arg in user_input.split():
-            self.stack.push(arg)
 
-    def parse_input(self):
+        return user_input
+
+    def parse_input(self, user_input):
         """
         Checks if a command is valid - if not, prints an error. Else, pop all
         other arguments to a list and then call the command with the given args
         """
+        for arg in user_input.split():
+            self.stack.push(arg)
+
         command = self.stack.pop()
         arguments = []
         if not command in commands_list.keys():
