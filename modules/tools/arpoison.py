@@ -3,6 +3,8 @@ from scapy.all import ARP, send
 from lib import network
 import time
 
+__module__ = "Arpoison"
+
 class Arpoison(Module):
     def initialize(self):
         self.update_info({

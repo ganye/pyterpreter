@@ -143,7 +143,7 @@ class Console:
         commands_list[command](self)._callback(*arguments)
 
     def set_module(self, new_module):
-        tmp = new_module.split("/")[-1]
+        name = new_module.split("/")[-1]
         # Replace /'s with .'s
         mod_path = new_module.replace("/", ".")
         # Strip the first "."
@@ -151,13 +151,18 @@ class Console:
         
         # Load the actual module class file
         try:
-            module = __import__(mod_path, fromlist=[tmp.title()])
+            module = __import__(mod_path, fromlist=[name])
         except SyntaxError, e:
             self.error("module contains a syntax error and cannot be loaded")
             traceback.print_exc(e)
             return
         
-        klass = getattr(module, tmp.title())
+
+        try:
+            name = getattr(module, '__module__')
+        except AttributeError:
+            name = name.title()
+        klass = getattr(module, name)
         self.module = klass(self)
         self.current_module = new_module
 

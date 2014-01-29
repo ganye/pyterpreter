@@ -1,6 +1,8 @@
 from base.module import Module
 import os.path
 
+__module__ = "Caesarcipher"
+
 class Caesarcipher(Module):
     MODULO=26
 

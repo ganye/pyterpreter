@@ -3,6 +3,8 @@ from scapy.all import Ether, ARP, srp, conf
 import os
 import time
 
+__module__ = "Arping"
+
 class Arping(Module):
     def initialize(self):
         self.update_info({
