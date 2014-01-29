@@ -15,13 +15,11 @@ class Caesarcipher(Module):
             'infile' : [True, 'The input file to read the cyphertext from'],
             'outfile' : [False, 'The file to write the cleartext to. If it is'+
                         'empty or \'stdout\' the cleartext is printed to screen'],
-            'samplesize': [False, 'The size of the sample given to choose, in words. Default 10'],
+            'samplesize': [False, 'The size of the sample given to choose, in words. Default 10', 1],
         })
 
     def run(self):
-        if self.samplesize.get() is None:
-            self.ssize = 10
-        else:
+        if not self.samplesize.get() is None:
             try:
                 self.ssize = int(self.samplesize.get())
             except ValueError:
