@@ -1,4 +1,5 @@
 from base.command import Command
+from base import getBaseDir
 import sys
 import os
 
@@ -12,7 +13,7 @@ class Load(Command):
         mod_path = "/modules/" + "/".join(args)
         # In the case of no args, we need to strip the extra /
         mod_path = mod_path.replace("//", "/")
-        abs_path = os.getcwd() + mod_path + ".py"
+        abs_path = getBaseDir() + mod_path + ".py"
 
         if not os.path.isfile(abs_path):
         	self.console.error("module '%s' not found" % "/".join(args))

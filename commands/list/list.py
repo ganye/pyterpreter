@@ -1,4 +1,5 @@
 from base.command import Command
+from base import getBaseDir
 import sys
 import os
 import re
@@ -22,7 +23,7 @@ class List(Command):
 
         try:
             # Get a list of all directories and files
-            for (dirpath, dirnames, filenames) in os.walk(os.getcwd() + search_path):
+            for (dirpath, dirnames, filenames) in os.walk(getBaseDir() + search_path):
                 items.extend(dirnames)
                 items.extend(filenames)
                 break # Break to prevent going deeper
@@ -33,7 +34,7 @@ class List(Command):
         pattern = re.compile(r".+\.py$")
         for item in items:
             # get the absolute path for the item
-            abs_path = os.path.abspath(os.getcwd() + search_path + item)
+            abs_path = os.path.abspath(getBaseDir() + search_path + item)
             if re.match(pattern, item):
                 if not item == "__init__.py": # Ignore package files
                     item = item.rstrip(".py")

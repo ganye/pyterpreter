@@ -2,6 +2,7 @@ from colors import Color
 from commands.commandstack import CommandStack
 from commands import commands_list
 import sys
+import traceback
 
 class Console:
     """
@@ -83,7 +84,11 @@ class Console:
         command = self.stack.pop()
         arguments = []
         if not command in commands_list.keys():
-            self.error("command '%s' not found." % command)
+            #don't crash if the user accidentally presses enter
+            if command==None:
+                self.error("please write a command.")
+            else:
+                self.error("command '%s' not found." % command)
             self.writeln("Enter 'help' or '?' to get a list of commands")
             while not self.stack.is_empty():
                 self.stack.pop()
@@ -121,6 +126,15 @@ class Console:
         self.set_color("white")
         self.writeln(message)
 
+    def info(self, message):
+        """
+        Used for quickly/simply writing an info statement to ostream.
+        """
+        self.set_color("green")
+        self.write("[+] ")
+        self.set_color("white")
+        self.writeln(message)
+
     def call(self, command, arguments):
         """
         Execute's the callback funcion for the given command, passing along
@@ -129,8 +143,6 @@ class Console:
         commands_list[command](self)._callback(*arguments)
 
     def set_module(self, new_module):
-        self.current_module = new_module
-
         tmp = new_module.split("/")[-1]
         # Replace /'s with .'s
         mod_path = new_module.replace("/", ".")
@@ -138,10 +150,16 @@ class Console:
         mod_path = mod_path.lstrip('.')
         
         # Load the actual module class file
-        module = __import__(mod_path, fromlist=[tmp.title()])
-        klass = getattr(module, tmp.title())
+        try:
+            module = __import__(mod_path, fromlist=[tmp.title()])
+        except SyntaxError, e:
+            self.error("module contains a syntax error and cannot be loaded")
+            traceback.print_exc(e)
+            return
         
+        klass = getattr(module, tmp.title())
         self.module = klass(self)
+        self.current_module = new_module
 
 class ConsoleError(Exception):
     def __init__(self, error):

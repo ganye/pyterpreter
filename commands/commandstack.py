@@ -22,7 +22,10 @@ class CommandStack:
         if not self.out_stack:
             while self.in_stack:
                 self.out_stack.append(self.in_stack.pop())
-        return self.out_stack.pop()
+        try:
+            return self.out_stack.pop()
+        except IndexError:
+            pass
 
     def is_empty(self):
         if self.out_stack:
