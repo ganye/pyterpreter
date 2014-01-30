@@ -1,3 +1,4 @@
+from base import getBaseDir
 import sys
 import os
 import re
@@ -10,7 +11,7 @@ _commands = []
 Look through the commands list folder for commands, then add them to the list
 of commands available.
 """
-files = os.listdir(os.getcwd() + "/commands/list")
+files = os.listdir(getBaseDir() + "/commands/list")
 pattern = re.compile(r".+\.py$")
 for file_ in files:
     if re.match(pattern, file_):

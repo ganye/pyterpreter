@@ -73,7 +73,7 @@ configuration.
 ```python
 class Arping(Module):
    def initialize(self):
-      self.updae_info({
+      self.update_info({
           'name' : 'Arping',
           'description' : 'Simple module to send an ARP out to the given' +
                           'network and prints the results.',

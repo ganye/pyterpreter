@@ -18,11 +18,11 @@ class Arping(Module):
 
     def run(self):
         conf.verb = 0
-        self.console.writeln("[+] sending arping...")
+        self.console.info("sending arping...")
         ans, unans = srp(Ether(dst="ff:ff:ff:ff:ff:ff")/
                          ARP(pdst=self.network.get()),timeout=2)
 
-        self.console.writeln("[+] done")
+        self.console.info("done")
         rows, columns = (-1, -1)
         split_input = True
         try:
