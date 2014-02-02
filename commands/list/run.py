@@ -5,7 +5,7 @@ class Run(Command):
         cont = True
         for raw_option in self.console.module.options:
             option_property = getattr(self.console.module, raw_option)
-            if not option_property.get() and option_property.required:
+            if not option_property.value and option_property.required:
                 self.console.error("'%s' option not set" % raw_option)
                 cont = False
 

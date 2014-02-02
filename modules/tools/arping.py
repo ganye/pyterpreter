@@ -1,4 +1,5 @@
 from base.module import Module
+from options import IPAddress
 from scapy.all import Ether, ARP, srp, conf
 import os
 import time
@@ -15,14 +16,14 @@ class Arping(Module):
             'author' : ['ganye'],
         })
         self.set_options({
-            'network' : [True, 'The network to scan for responses.',]
+            'network' : IPAddress(True, 'The network to scan for responses.',),
         })
 
     def run(self):
         conf.verb = 0
         self.console.info("sending arping...")
         ans, unans = srp(Ether(dst="ff:ff:ff:ff:ff:ff")/
-                         ARP(pdst=self.network.get()),timeout=2)
+                         ARP(pdst=self.network.value),timeout=2)
 
         self.console.info("done")
         rows, columns = (-1, -1)

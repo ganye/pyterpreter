@@ -1,14 +1,8 @@
 
 class Option(object):
-    def __init__(self, help, required, value):
-        self._help = help
+    def __init__(self, required, help, value=None):
         self._required = required
-        self._value = value
-
-    def get(self):
-        return self._value
-
-    def set(self, value):
+        self._help = help
         self._value = value
 
     @property

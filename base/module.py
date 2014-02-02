@@ -28,6 +28,10 @@ class Module(object):
         and a default value.
         """
         for key, value in options.items():
+            setattr(self, key, value)
+            self.options.append(key)
+        '''
+        for key, value in options.items():
             required = value[0]
             default=None
             help = value[1]
@@ -37,10 +41,11 @@ class Module(object):
 
             setattr(self, key, Option(help, required=required, value=default))
             self.options.append(key)
+        '''
 
     def set(self, key, value):
         option = getattr(self, key)
-        option.set(value)
+        option.value = value
 
     @property
     def help(self):
