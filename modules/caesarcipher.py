@@ -1,4 +1,5 @@
 from base.module import Module
+from options import Option
 import os.path
 
 __module__ = "Caesarcipher"
@@ -14,38 +15,38 @@ class Caesarcipher(Module):
             'author' : ['rhaps0dy'],
         })
         self.set_options({
-            'infile' : [True, 'The input file to read the cyphertext from'],
-            'outfile' : [False, 'The file to write the cleartext to. If it is'+
-                        'empty or \'stdout\' the cleartext is printed to screen'],
-            'samplesize': [False, 'The size of the sample given to choose, in words. Default 10', 1],
+            'infile' : Option(True, 'The input file to read the cyphertext from'),
+            'outfile' : Option(False, 'The file to write the cleartext to. If it is'+
+                        'empty or \'stdout\' the cleartext is printed to screen'),
+            'samplesize': Option(False, 'The size of the sample given to choose, in words. Default 10', 10),
         })
 
     def run(self):
-        if not self.samplesize.get() is None:
+        if not self.samplesize.value is None:
             try:
-                self.ssize = int(self.samplesize.get())
+                self.ssize = int(self.samplesize.value)
             except ValueError:
                 self.console.error("'samplesize' must be a either a number or empty.")
                 return
         try:
-            self.input = open(self.infile.get(), 'r')
+            self.input = open(self.infile.value, 'r')
         except IOError:
-            self.console.error("file %s does not exist", self.infile.get())
+            self.console.error("file %s does not exist", self.infile.value)
             return
 
-        if self.outfile.get() in [None, 'stdout']:
+        if self.outfile.value in [None, 'stdout']:
             self.output = self.console
-        elif not os.path.exists(self.outfile.get()):
-            if not os.path.isfile(self.outfile.get()):
-                self.console.error("%s already exists and is not a file", self.outfile.get())
+        elif not os.path.exists(self.outfile.value):
+            if not os.path.isfile(self.outfile.value):
+                self.console.error("%s already exists and is not a file", self.outfile.value)
                 return
-            self.console.warning("file %s already exists, do you want to overwrite it? (y/n)", self.outfile.get())
+            self.console.warning("file %s already exists, do you want to overwrite it? (y/n)", self.outfile.value)
             while True:
                 res = self.console.get_input()
                 if res.lower() in 'no':
                     return
                 elif res.lower() in 'yes':
-                    self.output = open(self.outfile.get(), 'w')
+                    self.output = open(self.outfile.value, 'w')
                     break
                 self.console.error("please enter y[es] or n[o].")
 
