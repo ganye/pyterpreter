@@ -2,6 +2,10 @@ from base.command import Command
 
 class Set(Command):
     def callback(self, *args):
+        if self.console.current_module is None:
+            self.console.error("no module currently loaded")
+            return
+            
         if len(args) < 2:
             self.console.error("expected at least 2 arguments, got %s"
                  % len(args))
